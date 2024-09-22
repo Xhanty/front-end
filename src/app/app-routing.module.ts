@@ -7,6 +7,7 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
     imports: [
         RouterModule.forRoot([
             { path: '', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
+            { path: 'contact', loadChildren: () => import('./demo/components/contactus/contactus.module').then(m => m.ContactusModule) },
             {
                 path: 'dashboard', component: AppLayoutComponent,
                 children: [
