@@ -1,0 +1,71 @@
+// ENCABEZADO
+
+.nav>li>a {
+    color: #000;
+    font-weight: 700;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+// BANNER   
+
+#hero {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    align-items: left;
+    justify-content: center;
+
+    .image-banner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+
+    .text-banner {
+        position: relative;
+        z-index: 1;
+        font-weight: bold;
+    }
+}
+
+// PROFESORES
+.card-teacher {
+    height: 160px;
+    padding: 2px;
+    border-radius: 10px;
+    border: 1px solid #e4e4e4;
+}
+
+.container-image-teacher {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.image-teacher {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 15px;
+}
+
+.text-teacher {
+    flex-grow: 1;
+    text-align: left;
+}
+
+
+
+// FOOTER
+
+.footer {
+    border-top: 1px solid #e4e4e4;
+}
