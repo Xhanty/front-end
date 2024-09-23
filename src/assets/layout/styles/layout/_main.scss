@@ -16,6 +16,7 @@ body {
     min-height: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    cursor: url('../../images/mouse.png') 0 100, auto;
 }
 
 a {
@@ -25,4 +26,15 @@ a {
 
 .layout-wrapper {
     min-height: 100vh;
+}
+
+a,
+button,
+input,
+select,
+ul,
+label,
+div,
+li {
+    cursor: url('../../images/mouse.png') 0 100, auto !important;
 }
