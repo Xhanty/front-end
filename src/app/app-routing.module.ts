@@ -6,17 +6,18 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
 @NgModule({
     imports: [
         RouterModule.forRoot([
+            // Aqui configuramos las rutas auque cada componente puede tener este archivo
+
             { path: '', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
             { path: 'contact', loadChildren: () => import('./demo/components/contactus/contactus.module').then(m => m.ContactusModule) },
             {
                 path: 'dashboard', component: AppLayoutComponent,
                 children: [
                     { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
+
+                    // Rutas para admin
+                    { path: 'subjects', loadChildren: () => import('./demo/components/subjects/subjects.module').then(m => m.SubjectsModule) },
                     
-                    
-                    { path: 'uikit', loadChildren: () => import('./demo/components/uikit/uikit.module').then(m => m.UIkitModule) },
-                    { path: 'utilities', loadChildren: () => import('./demo/components/utilities/utilities.module').then(m => m.UtilitiesModule) },
-                    { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) }
                 ]
             },

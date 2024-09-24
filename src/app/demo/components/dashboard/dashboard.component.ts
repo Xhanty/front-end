@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Product } from '../../api/product';
-import { ProductService } from '../../service/product.service';
+import { Subject } from '../../api/subject';
+import { SubjectService } from '../../service/subject.service';
 import { Subscription, debounceTime } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     items!: MenuItem[];
 
-    products!: Product[];
+    subjects!: Subject[];
 
     chartData: any;
 
@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     subscription!: Subscription;
 
-    constructor(private productService: ProductService, public layoutService: LayoutService) {
+    constructor(private subjectService: SubjectService, public layoutService: LayoutService) {
         this.subscription = this.layoutService.configUpdate$
         .pipe(debounceTime(25))
         .subscribe((config) => {
@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.initChart();
-        this.productService.getProductsSmall().then(data => this.products = data);
+        this.subjectService.getSubjectsSmall().then(data => this.subjects = data);
 
         this.items = [
             { label: 'Add New', icon: 'pi pi-fw pi-plus' },
