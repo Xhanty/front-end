@@ -1,6 +1,7 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-menu',
@@ -10,7 +11,7 @@ export class AppMenuComponent implements OnInit {
 
     model: any[] = [];
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(public layoutService: LayoutService, private router: Router) { }
 
     ngOnInit() {
         this.model = [
@@ -23,10 +24,10 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Administrador',
                 items: [
-                    { label: 'Materias', icon: 'pi pi-fw pi-book', routerLink: ['/dashboard/subjects']},
-                    { label: 'Roles', icon: 'pi pi-fw pi-server', routerLink: ['/']},
-                    { label: 'Usuarios', icon: 'pi pi-fw pi-user', routerLink: ['/']},
-                    { label: 'Estudiantes', icon: 'pi pi-fw pi-users', routerLink: ['/']},
+                    { label: 'Materias', icon: 'pi pi-fw pi-book', routerLink: ['/dashboard/subjects'] },
+                    { label: 'Roles', icon: 'pi pi-fw pi-server', routerLink: ['/'] },
+                    { label: 'Usuarios', icon: 'pi pi-fw pi-user', routerLink: ['/'] },
+                    { label: 'Estudiantes', icon: 'pi pi-fw pi-users', routerLink: ['/'] },
                 ]
             },
 
@@ -69,10 +70,15 @@ export class AppMenuComponent implements OnInit {
                 label: 'Otros',
                 items: [
                     // { label: 'Noticias', icon: 'pi pi-fw pi-star-fill', routerLink: ['/']},
-                    { label: 'Perfil', icon: 'pi pi-fw pi-user-edit', routerLink: ['/']},
-                    { label: 'Cerrar Sesión', icon: 'pi pi-fw pi-sign-out', routerLink: ['/']}
+                    { label: 'Perfil', icon: 'pi pi-fw pi-user-edit', routerLink: ['/'] },
+                    { label: 'Cerrar Sesión', icon: 'pi pi-fw pi-sign-out', command: () => this.logout() }
                 ]
             },
         ];
+    }
+
+    logout() {
+        localStorage.removeItem('userSession');
+        this.router.navigate(['auth/login']);
     }
 }
