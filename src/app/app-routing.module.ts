@@ -17,6 +17,7 @@ import { authGuard } from './auth.guard';
 
                     // Rutas para admin
                     { path: 'subjects', loadChildren: () => import('./demo/components/subjects/subjects.module').then(m => m.SubjectsModule) },
+                    { path: 'users', loadChildren: () => import('./demo/components/users/users.module').then(m => m.UsersModule) },
 
                     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) }
                 ], canActivate: [authGuard]
