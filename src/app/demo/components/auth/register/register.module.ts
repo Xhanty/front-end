@@ -9,18 +9,25 @@ import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { RippleModule } from 'primeng/ripple';
+
 
 @NgModule({
     imports: [
         CommonModule,
         RegisterRoutingModule,
-        ButtonModule,
         CheckboxModule,
         InputTextModule,
         FormsModule,
         PasswordModule,
         CalendarModule,
-        DropdownModule
+        DropdownModule,
+        ToastModule, 
+        ButtonModule, 
+        RippleModule,
+        ReactiveFormsModule
     ],
     declarations: [RegisterComponent]
 })

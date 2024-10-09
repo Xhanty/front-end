@@ -4,7 +4,9 @@
         <div class="grid surface-ground flex justify-content-center overflow-hidden">
             <div class="col-8 mt-8 mb-8 justify-content-center text-center">
                 <img src="assets/layout/images/logo.png" alt="Sakai logo" class="mb-5 w-6rem flex-shrink-0">
-                <div class="grid surface-card py-8 px-5 sm:px-8 text-left" style="border-radius:53px">
+                <p-toast />
+                <form [formGroup]="registerForm" (ngSubmit)="submitForm()"
+                    class="grid surface-card py-8 px-5 sm:px-8 text-left" style="border-radius:53px">
                     <!-- CAMPOS DEL FORMULARI DE REGISTRO -->
                     <div class="col-12">
                         <div class="text-center mb-5">
@@ -14,83 +16,155 @@
                     <div class="col-12 md:col-12 lg:col-6">
                         <div class="col-12">
                             <label for="name" class="block text-900 font-medium mb-2">Nombres</label>
-                            <input id="name" type="text" placeholder="Nombres" pInputText class="w-full mb-1">
+                            <input type="text" placeholder="Nombres" id="name" formControlName="name"
+                                [ngClass]="{'ng-invalid ng-dirty': (registerForm.get('name')?.invalid && (registerForm.get('name')?.touched || submitted))}"
+                                pInputText class="w-full mb-1" />
+                            <small id="name-help"
+                                *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.touched || submitted)">
+                                <span *ngIf="registerForm.get('name')?.errors?.['required']">El nombre es
+                                    obligatorio.</span>
+                                <span *ngIf="registerForm.get('name')?.errors?.['minlength']">El nombre debe tener al
+                                    menos 2 caracteres.</span>
+                                <span *ngIf="registerForm.get('name')?.errors?.['maxlength']">El nombre no puede exceder
+                                    los 50 caracteres.</span>
+                            </small>
                         </div>
                     </div>
+
                     <div class="col-12 md:col-12 lg:col-6">
                         <div class="col-12">
-                            <label for="name" class="block text-900 font-medium mb-2">Apellidos</label>
-                            <input id="name" type="text" placeholder="Apellidos" pInputText class="w-full mb-1">
+                            <label for="lastname" class="block text-900 font-medium mb-2">Apellidos</label>
+                            <input type="text" placeholder="Apellidos" id="lastname" formControlName="lastname"
+                                [ngClass]="{'ng-invalid ng-dirty': (registerForm.get('lastname')?.invalid && (registerForm.get('lastname')?.touched || submitted))}"
+                                pInputText class="w-full mb-1" />
+                            <small id="lastname-help"
+                                *ngIf="registerForm.get('lastname')?.invalid && (registerForm.get('lastname')?.touched || submitted)">
+                                <span *ngIf="registerForm.get('lastname')?.errors?.['required']">El apellido es
+                                    obligatorio.</span>
+                                <span *ngIf="registerForm.get('lastname')?.errors?.['minlength']">El apellido debe tener
+                                    al menos 2 caracteres.</span>
+                                <span *ngIf="registerForm.get('lastname')?.errors?.['maxlength']">El apellido no puede
+                                    exceder los 50 caracteres.</span>
+                            </small>
                         </div>
                     </div>
+
                     <div class="col-12 md:col-12 lg:col-6">
                         <div class="col-12">
-                            <label for="name" class="block text-900 font-medium mb-2">Fecha de nacimiento</label>
-                            <p-calendar [(ngModel)]="date" [showIcon]="true" styleClass="w-full"
-                                inputStyleClass="w-full p-3" />
+                            <label for="date" class="block text-900 font-medium mb-2">Fecha de nacimiento</label>
+                            <p-calendar formControlName="date" id="date" [showIcon]="true" styleClass="w-full"
+                                inputStyleClass="w-full p-3"
+                                [ngClass]="{'ng-invalid ng-dirty': (registerForm.get('date')?.invalid && (registerForm.get('date')?.touched || submitted))}" />
+                            <small id="date-help"
+                                *ngIf="registerForm.get('date')?.invalid && (registerForm.get('date')?.touched || submitted)">
+                                <span *ngIf="registerForm.get('date')?.errors?.['required']">La fecha de nacimiento es
+                                    obligatoria.</span>
+                            </small>
                         </div>
                     </div>
+
                     <div class="col-12 md:col-12 lg:col-6">
                         <div class="col-12">
-                            <label for="name" class="block text-900 font-medium mb-2">Correo electrónico</label>
-                            <input id="name" type="text" placeholder="Correo electrónico" pInputText
-                                class="w-full mb-1">
+                            <label for="email" class="block text-900 font-medium mb-2">Correo electrónico</label>
+                            <input formControlName="email" id="email" type="text" placeholder="Correo electrónico"
+                                pInputText class="w-full mb-1"
+                                [ngClass]="{'ng-invalid ng-dirty': (registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || submitted))}" />
+                            <small id="email-help"
+                                *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || submitted)">
+                                <span *ngIf="registerForm.get('email')?.errors?.['required']">El correo electrónico es
+                                    obligatorio.</span>
+                                <span *ngIf="registerForm.get('email')?.errors?.['email']">El correo electrónico no es
+                                    válido.</span>
+                            </small>
                         </div>
                     </div>
+
                     <div class="col-12 md:col-12 lg:col-6">
                         <div class="col-12">
-                            <label for="name" class="block text-900 font-medium mb-2">Tipo documento</label>
-                            <p-dropdown [options]="documents_type" [(ngModel)]="document_type" optionLabel="name"
-                                [filter]="true" filterBy="name" [showClear]="true" placeholder="Tipo documento"
-                                styleClass="w-full" inputStyleClass="w-full p-3" />
+                            <label for="document_type" class="block text-900 font-medium mb-2">Tipo documento</label>
+                            <p-dropdown [options]="documents_type" formControlName="document_type" id="document_type"
+                                optionLabel="name" [filter]="true" filterBy="name" placeholder="Tipo documento"
+                                styleClass="w-full" inputStyleClass="w-full p-3"
+                                [ngClass]="{'ng-invalid ng-dirty': (registerForm.get('document_type')?.invalid && (registerForm.get('document_type')?.touched || submitted))}" />
+                            <small id="document_type-help"
+                                *ngIf="registerForm.get('document_type')?.invalid && (registerForm.get('document_type')?.touched || submitted)">
+                                <span *ngIf="registerForm.get('document_type')?.errors?.['required']">El tipo de
+                                    documento es obligatorio.</span>
+                            </small>
                         </div>
                     </div>
+
                     <div class="col-12 md:col-12 lg:col-6">
                         <div class="col-12">
-                            <label for="name" class="block text-900 font-medium mb-2">Documento</label>
-                            <input id="name" type="text" placeholder="Documento" pInputText class="w-full mb-1">
+                            <label for="document" class="block text-900 font-medium mb-2">Documento</label>
+                            <input formControlName="document" id="document" type="text" placeholder="Documento"
+                                pInputText class="w-full mb-1"
+                                [ngClass]="{'ng-invalid ng-dirty': (registerForm.get('document')?.invalid && (registerForm.get('document')?.touched || submitted))}" />
+                            <small id="document-help"
+                                *ngIf="registerForm.get('document')?.invalid && (registerForm.get('document')?.touched || submitted)">
+                                <span *ngIf="registerForm.get('document')?.errors?.['required']">El documento es
+                                    obligatorio.</span>
+                            </small>
                         </div>
                     </div>
+
                     <div class="col-12 md:col-12 lg:col-6">
                         <div class="col-12">
-                            <label for="name" class="block text-900 font-medium mb-2">Tipo usuario</label>
-                            <p-dropdown [options]="users_type" [(ngModel)]="user_type" optionLabel="name"
-                                [filter]="true" filterBy="name" [showClear]="true" placeholder="Tipo documento"
-                                styleClass="w-full" inputStyleClass="w-full p-3" />
+                            <label for="user_type" class="block text-900 font-medium mb-2">Tipo usuario</label>
+                            <p-dropdown [options]="users_type" formControlName="user_type" id="user_type"
+                                optionLabel="name" [filter]="true" filterBy="name" placeholder="Tipo usuario"
+                                styleClass="w-full" inputStyleClass="w-full p-3"
+                                [ngClass]="{'ng-invalid ng-dirty': (registerForm.get('user_type')?.invalid && (registerForm.get('user_type')?.touched || submitted))}" />
+                            <small id="user_type-help"
+                                *ngIf="registerForm.get('user_type')?.invalid && (registerForm.get('user_type')?.touched || submitted)">
+                                <span *ngIf="registerForm.get('user_type')?.errors?.['required']">El tipo de usuario es
+                                    obligatorio.</span>
+                            </small>
                         </div>
                     </div>
+
                     <div class="col-12 md:col-12 lg:col-6">
                         <div class="col-12">
-                            <label for="name" class="block text-900 font-medium mb-2">Usuario</label>
-                            <input id="name" disabled type="text" placeholder="Documento" pInputText class="w-full mb-1">
+                            <label for="password" class="block text-900 font-medium mb-2">Contraseña</label>
+                            <p-password id="password" formControlName="password" placeholder="Contraseña"
+                                [toggleMask]="true" styleClass="w-full" inputStyleClass="w-full p-3"
+                                [ngClass]="{'ng-invalid ng-dirty': (registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || submitted))}"></p-password>
+                            <small id="password-help"
+                                *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || submitted)">
+                                <span *ngIf="registerForm.get('password')?.errors?.['required']">La contraseña es
+                                    obligatoria.</span>
+                                <span *ngIf="registerForm.get('password')?.errors?.['minlength']">La contraseña debe
+                                    tener al menos 6 caracteres.</span>
+                            </small>
                         </div>
                     </div>
+
                     <div class="col-12 md:col-12 lg:col-6">
                         <div class="col-12">
-                            <label for="name" class="block text-900 font-medium mb-2">Contraseña</label>
-                            <p-password id="password1" [(ngModel)]="password" placeholder="Contraseña"
-                                [toggleMask]="true" styleClass="w-full" inputStyleClass="w-full p-3"></p-password>
-                        </div>
-                    </div>
-                    <div class="col-12 md:col-12 lg:col-6">
-                        <div class="col-12">
-                            <label for="name" class="block text-900 font-medium mb-2">Confirmar Contraseña</label>
-                            <p-password id="password1" [(ngModel)]="Confirmationpassword" placeholder="Contraseña"
-                                [toggleMask]="true" styleClass="mb-5 w-full" inputStyleClass="w-full p-3"></p-password>
+                            <label for="confirmationPassword" class="block text-900 font-medium mb-2">Confirmar
+                                Contraseña</label>
+                            <p-password id="confirmationPassword" formControlName="confirmationPassword"
+                                placeholder="Confirmar Contraseña" [toggleMask]="true" styleClass="w-full"
+                                inputStyleClass="w-full p-3"
+                                [ngClass]="{'ng-invalid ng-dirty': (registerForm.get('confirmationPassword')?.invalid && (registerForm.get('confirmationPassword')?.touched || submitted))}"></p-password>
+                            <small id="confirmationPassword-help"
+                                *ngIf="registerForm.get('confirmationPassword')?.invalid && (registerForm.get('confirmationPassword')?.touched || submitted)">
+                                <span *ngIf="registerForm.get('confirmationPassword')?.errors?.['required']">La
+                                    confirmación de la contraseña es obligatoria.</span>
+                                <span *ngIf="registerForm.get('confirmationPassword')?.errors?.['mismatch']">Las
+                                    contraseñas no coinciden.</span>
+                            </small>
                         </div>
                     </div>
                     <div class="col-12 ">
                         <div class="grid justify-content-center text-center">
                             <div class="col-12 md:col-12 lg:col-6 ">
-                                <button pButton pRipple label="Registrarme" class="w-full p-3 text-xl"
-                                    [routerLink]="['/dashboard']"></button>
+                                <button [disabled]="btnSubmit" type="submit" pButton pRipple label="Registrarme"
+                                    class="w-full p-3 text-xl"></button>
                             </div>
-
                         </div>
-
                     </div>
-                </div>
-
+                </form>
             </div>
         </div>
         <!-- Footer -->
